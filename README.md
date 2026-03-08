@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Resume Builder
 
-## Getting Started
+A production-ready Full Stack AI Resume Builder platform built with Next.js App Router, Supabase, and the Groq API (LLaMA).
 
-First, run the development server:
+## Features
+- **Modern Multi-Step Form**: Highly responsive and beautiful UI built with React Hook Form and Zod validation, styled with Tailwind CSS & glassmorphism.
+- **AI-Powered Content Generation**: Fast bullet point enhancement and resume summary generation utilizing Groq's LLaMA 3 models.
+- **ATS Resume Analyzer**: Instantly grade your resume data against standard ATS scanning procedures to get actionable feedback.
+- **Live Preview & Styling**: Real-time live resume preview featuring Minimal, Modern, Professional, and Creative themes.
+- **PDF Export**: Generate perfectly scaled 1-click PDF exports using `html2pdf.js`.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Architecture / Tech Stack
+- **Framework:** Next.js 14
+- **Styling:** Tailwind CSS + Framer Motion
+- **State Management:** Zustand
+- **Database + Auth:** Supabase
+- **Forms:** React Hook Form + Zod
+- **AI Infrastructure:** Groq SDK
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running the Application Locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone & Install Dependencies**
+   ```bash
+   cd ai-resume-builder
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Environment Configuration**
+   Create a `.env.local` file supplying your platform keys:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+   GROQ_API_KEY=your-groq-api-key
+   ```
 
-## Learn More
+3. **Database Configuration (Supabase)**
+   Ensure your Supabase project contains the base schema outlined in our design instructions (the `users` and `resumes` table).
 
-To learn more about Next.js, take a look at the following resources:
+4. **Start the Development Server**
+   ```bash
+   npm run dev
+   ```
+   Access the app at `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Vercel Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deploying the application via Vercel is streamlined for Next.js App Router architectures:
+1. Push your code to a GitHub repository.
+2. Sign in to [Vercel](https://vercel.com/) and create a "New Project".
+3. Bind your repository. Add your `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `GROQ_API_KEY` to the **Environment Variables** section.
+4. Click Deploy. Vercel will automatically configure build settings (`npm run build`).
 
-## Deploy on Vercel
+## Usage Guidance
+1. First head to **"Build Resume"** from the Homepage or Dashboard.
+2. Complete your details sequentially through the animated flow, updating components like Experience and Education dynamically.
+3. Access the **Template Control** at the top of the Live Preview segment to flip between professional layouts.
+4. Click the **"Download PDF"** button directly over the preview to render to disk.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Built with ❤️ utilizing cutting-edge Next.js and Generative AI patterns.*
