@@ -3,15 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { LayoutTemplate, Sparkles, Briefcase, FileText, Brush } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import TemplatePreview from "@/components/TemplatePreview";
 
 const TEMPLATES = [
     {
         id: "minimal",
         name: "Minimal",
-        description: "A clean, modern layout focusing on readability and simplicity.",
+        description: "Clean ATS friendly layout",
         icon: <FileText className="w-6 h-6 text-slate-300" />,
-        image: "/templates/minimal.png",
+        route: "/resume-builder?template=minimal",
         color: "slate",
         popular: true
     },
@@ -20,7 +20,7 @@ const TEMPLATES = [
         name: "Modern",
         description: "Bold typography and structured sections for a contemporary feel.",
         icon: <Sparkles className="w-6 h-6 text-pink-400" />,
-        image: "/templates/modern.png",
+        route: "/resume-builder?template=modern",
         color: "pink",
         popular: false
     },
@@ -29,7 +29,7 @@ const TEMPLATES = [
         name: "Professional",
         description: "Classic, battle-tested design perfect for corporate roles.",
         icon: <Briefcase className="w-6 h-6 text-blue-400" />,
-        image: "/templates/professional.png",
+        route: "/resume-builder?template=professional",
         color: "blue",
         popular: false
     },
@@ -38,8 +38,44 @@ const TEMPLATES = [
         name: "Creative",
         description: "Stand out with a unique, visually striking resume layout for design-focused roles.",
         icon: <Brush className="w-6 h-6 text-indigo-400" />,
-        image: "/templates/creative.png",
+        route: "/resume-builder?template=creative",
         color: "indigo",
+        popular: false
+    },
+    {
+        id: "executive",
+        name: "Executive",
+        description: "Premium corporate layout for senior roles",
+        icon: <Briefcase className="w-6 h-6 text-yellow-400" />,
+        route: "/resume-builder?template=executive",
+        color: "yellow",
+        popular: false
+    },
+    {
+        id: "elegant",
+        name: "Elegant",
+        description: "Sophisticated serif based resume style",
+        icon: <Sparkles className="w-6 h-6 text-teal-400" />,
+        route: "/resume-builder?template=elegant",
+        color: "teal",
+        popular: false
+    },
+    {
+        id: "compact",
+        name: "Compact",
+        description: "Dense resume optimized for one page",
+        icon: <FileText className="w-6 h-6 text-orange-400" />,
+        route: "/resume-builder?template=compact",
+        color: "orange",
+        popular: false
+    },
+    {
+        id: "tech",
+        name: "Tech",
+        description: "Modern developer focused resume layout",
+        icon: <LayoutTemplate className="w-6 h-6 text-emerald-400" />,
+        route: "/resume-builder?template=tech",
+        color: "emerald",
         popular: false
     }
 ];
@@ -60,12 +96,12 @@ export default function TemplatesPage() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-20">
                     {TEMPLATES.map((template) => (
-                        <div key={template.id} className="group rounded-3xl bg-white/5 border border-white/10 overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)] flex flex-col items-center">
+                        <div key={template.id} className="group rounded-xl bg-slate-900 border border-white/10 overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)] flex flex-col items-center shadow-lg">
 
                             {/* Preview Frame */}
-                            <div className="w-full aspect-[3/4] p-6 bg-slate-900/50 relative overflow-hidden flex items-center justify-center border-b border-white/5">
+                            <div className="w-full h-[320px] p-6 bg-slate-900/50 relative overflow-hidden flex items-center justify-center border-b border-white/5">
                                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-950/90 z-10" />
 
                                 {template.popular && (
@@ -74,15 +110,10 @@ export default function TemplatesPage() {
                                     </div>
                                 )}
 
-                                {/* Local Rendered Image Card */}
-                                <div className="w-[85%] h-full bg-slate-800 rounded-md shadow-2xl overflow-hidden relative transform-gpu group-hover:scale-[1.05] transition-transform duration-500 border border-slate-700/50 group-hover:border-purple-500/30">
-                                    <Image
-                                        src={template.image}
-                                        alt={`${template.name} preview`}
-                                        fill
-                                        className="object-cover transition-opacity duration-300 group-hover:opacity-100 opacity-90"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                {/* Local Rendered Component Card */}
+                                <div className="w-[85%] bg-white rounded-lg shadow-2xl overflow-hidden relative transform-gpu group-hover:scale-[1.05] transition-transform duration-500 border border-slate-700/50 group-hover:border-purple-500/30">
+                                    <TemplatePreview template={template.id} />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             </div>
 
@@ -99,7 +130,7 @@ export default function TemplatesPage() {
                                     {template.description}
                                 </p>
 
-                                <Link href={`/resume-builder?template=${template.id}`} className="w-full mt-auto">
+                                <Link href={template.route} className="w-full mt-auto">
                                     <Button className="w-full bg-white/10 hover:bg-white text-white hover:text-slate-950 font-semibold py-6 rounded-xl border border-white/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                                         Use {template.name} Template
                                     </Button>

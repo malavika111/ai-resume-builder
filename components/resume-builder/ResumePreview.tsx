@@ -4,14 +4,19 @@ import MinimalTemplate from "../templates/MinimalTemplate";
 import ModernTemplate from "../templates/ModernTemplate";
 import ProfessionalTemplate from "../templates/ProfessionalTemplate";
 import CreativeTemplate from "../templates/CreativeTemplate";
+import ExecutiveTemplate from "../templates/ExecutiveTemplate";
+import ElegantTemplate from "../templates/ElegantTemplate";
+import CompactTemplate from "../templates/CompactTemplate";
+import TechTemplate from "../templates/TechTemplate";
 import { Button } from "@/components/ui/button";
 import { Download, LayoutTemplate, Save } from "lucide-react";
 import { useState, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useSearchParams, useRouter } from "next/navigation";
+import { templates } from "@/lib/templates";
 
-export type TemplateType = "minimal" | "modern" | "professional" | "creative";
+export type TemplateType = "minimal" | "modern" | "professional" | "creative" | "executive" | "elegant" | "compact" | "tech";
 
 export default function ResumePreview() {
     const searchParams = useSearchParams();
@@ -102,16 +107,15 @@ export default function ResumePreview() {
 
     const renderTemplate = () => {
         switch (template) {
-            case "minimal":
-                return <MinimalTemplate />;
-            case "modern":
-                return <ModernTemplate />;
-            case "professional":
-                return <ProfessionalTemplate />;
-            case "creative":
-                return <CreativeTemplate />;
-            default:
-                return <ModernTemplate />;
+            case "minimal": return <MinimalTemplate />;
+            case "modern": return <ModernTemplate />;
+            case "professional": return <ProfessionalTemplate />;
+            case "creative": return <CreativeTemplate />;
+            case "executive": return <ExecutiveTemplate />;
+            case "elegant": return <ElegantTemplate />;
+            case "compact": return <CompactTemplate />;
+            case "tech": return <TechTemplate />;
+            default: return <ModernTemplate />;
         }
     };
 
@@ -127,10 +131,9 @@ export default function ResumePreview() {
                         onChange={(e) => setTemplate(e.target.value as TemplateType)}
                         className="bg-transparent text-sm font-bold outline-none cursor-pointer text-white appearance-none pr-4 focus:ring-0"
                     >
-                        <option className="bg-slate-900" value="minimal">Minimal</option>
-                        <option className="bg-slate-900" value="modern">Modern</option>
-                        <option className="bg-slate-900" value="professional">Professional</option>
-                        <option className="bg-slate-900" value="creative">Creative</option>
+                        {templates.map(t => (
+                            <option key={t.id} className="bg-slate-900" value={t.id}>{t.name}</option>
+                        ))}
                     </select>
                 </div>
 
